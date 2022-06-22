@@ -1,17 +1,21 @@
 import Navbar from '../components/Navbar/Navbar'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Center, Grid, Stack, Text } from '@chakra-ui/react'
+import { Box, Center, Grid, SlideFade, Stack, Text } from '@chakra-ui/react'
 import { getItemsCart } from '../redux/actions/cart';
 import ProductCart from '../components/Card/ProductsCart';
 import Footer from '../components/Footer/Footer';
+import cookie from 'js-cookie'
 
+function Cart() {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    (async () => {
+      dispatch(getItemsCart())
+    })()
+  }, [dispatch])
 
-
-export default function Cart() {
-  const itemsCart = useSelector(state => state.shoppingCartReducer.itemsCart)
-
-  return (   
+  return (    
     <Stack alignItems='center'>
       <Navbar />
       <ProductCart />
@@ -19,3 +23,5 @@ export default function Cart() {
     </Stack>
   )
 }
+
+export default Cart
